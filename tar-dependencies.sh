@@ -4,7 +4,7 @@ DEPENDENCIES_OUTPUT_FILE=dependencies-output.txt
 
 echo -n "Output dependencies list to file ... "
 
-output=$( mvn -Doutput.file.name=${DEPENDENCIES_OUTPUT_FILE} dependency:go-offline 2>&1 ) 
+output=$( ./mvnw -Doutput.file.name=${DEPENDENCIES_OUTPUT_FILE} dependency:go-offline 2>&1 ) 
 
 if [ $? -ne 0 ]; then
   echo "[Failed]"
