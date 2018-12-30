@@ -4,12 +4,13 @@ set -o pipefail
 
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 LOCAL_REPO_DIR="${DIR}/maven-repo"
+POM_FILE="${1-pom.xml}"
 
 rm -rf ${LOCAL_REPO_DIR}
 
-echo -n "Download dependencies to ${LOCAL_REPO_DIR} ... "
+echo -n "Download dependencies to ${LOCAL_REPO_DIR} using POM file ${POM_FILE} ... "
 
-output=$( ./mvnw -Dmaven.repo.local=${LOCAL_REPO_DIR} dependency:go-offline 2>&1 | tee mvn_process.log ) 
+output=$( ./mvnw -Dmaven.repo.local=${LOCAL_REPO_DIR} dependency:go-offline -f ${POM_FILE} 2>&1 | tee mvn_process.log ) 
 
 if [ $? -ne 0 ]; then
   echo "[Failed]"
